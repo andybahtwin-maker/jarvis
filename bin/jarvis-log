@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+msg="$*"
+printf '[%(%F %T)T] %s\n' -1 "$msg" >> "$HOME/Jarvis/results/jarvis.log"

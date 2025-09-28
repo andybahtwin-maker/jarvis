@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -euo pipefail
+OUTDIR="$HOME/Jarvis/results"
+STAMP="$(date +'%Y%m%d_%H%M%S')"
+OUT="$OUTDIR/clip_summary_${STAMP}.txt"
+
+# Try X clipboard first; if empty, try pbpaste (mac) then fallback
+CLIP="$( (command -v xclip >/dev/null && xclip -selection clipboard -o 2>/dev/null) \
+      || (command -v pbpaste >/dev/null && pbpaste 2>/dev/null) \
+      || true )"
+
+if [ -z "${CLIP//[$' \t\r\n']}" ]; then
+  echo "(clipboard is empty)" > "$OUT"
+  "$HOME/Jarvis/workspace/bin/jarvis-log" "summarize-clipboard: empty clipboard"
+  exit 0
+fi
+
+PROMPT="Summarize the following text succinctly in bullet points, include 3 action items if implied:\n\n$CLIP"
+ollama run 'llama3.2:3b' "$PROMPT" > "$OUT" 2>&1 || true
+
+"$HOME/Jarvis/workspace/bin/jarvis-log" "summarize-clipboard -> $OUT"
+echo "$OUT"
