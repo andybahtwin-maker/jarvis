@@ -1,0 +1,6 @@
+### LLaMA run ($MODEL) - $(date)
+
+### Prompt
+$PROMPT
+
+### Response
