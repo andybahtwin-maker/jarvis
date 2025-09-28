@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-MODEL="llama3:2.3b"
+MODEL="llama3.2:3b"
 PROMPT="${1:-Summarize my clipboard.}"
 OUTDIR="$HOME/Jarvis/workspace/results"
 STAMP="$(date +'%Y%m%d_%H%M%S')"
