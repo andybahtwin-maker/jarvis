@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+VAULT="$HOME/.jarvis/.env"
+[ -f "$VAULT" ] && set -a && . "$VAULT" && set +a
+exec "$@"
