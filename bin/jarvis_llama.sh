@@ -1,33 +1,36 @@
 #!/usr/bin/env bash
-# Jarvis dispatcher for LLAMA (Ollama backend)
 set -euo pipefail
 
-# input: JSON like {"cmd":"llama","model":"llama3:2.3b","prompt":"Hello"}
-IN="${1:-}"
-if [ -z "$IN" ]; then
-  read -r IN
-fi
-
-MODEL="$(echo "$IN" | jq -r '.model // "llama3:2.3b"')"
-PROMPT="$(echo "$IN" | jq -r '.prompt // empty')"
+MODEL="llama3:2.3b"
+PROMPT="${1:-Summarize my clipboard.}"
 OUTDIR="$HOME/Jarvis/workspace/results"
+STAMP="$(date +'%Y%m%d_%H%M%S')"
+OUTFILE="$OUTDIR/llama_${STAMP}.txt"
+
 mkdir -p "$OUTDIR"
 
-STAMP="$(date -Iseconds)"
-OUTFILE="$OUTDIR/llm_${STAMP}.md"
+echo "### LLaMA run (\$MODEL) - \$(date)" >"$OUTFILE"
+echo >>"$OUTFILE"
+echo "### Prompt" >>"$OUTFILE"
+echo "\$PROMPT" >>"$OUTFILE"
+echo >>"$OUTFILE"
+echo "### Response" >>"$OUTFILE"
 
-{
-  echo "### LLaMA run ($MODEL) — $STAMP"
-  echo ""
-  echo "#### Prompt"
-  echo "\`\`\`"
-  echo "$PROMPT"
-  echo "\`\`\`"
-  echo ""
-  echo "#### Response"
-  echo "\`\`\`"
-  ollama run "$MODEL" "$PROMPT" 2>&1
-  echo "\`\`\`"
-} | tee "$OUTFILE"
+# Make sure ollama service is running
+if ! pgrep -x ollama >/dev/null 2>&1; then
+  echo "[info] Starting ollama service..." >&2
+  ollama serve >/dev/null 2>&1 &
+  sleep 5
+fi
 
-echo "[jarvis-llama] wrote $OUTFILE" >> "$OUTDIR/last_run.txt"
+# Pull model if missing
+if ! ollama list | grep -q "\$MODEL"; then
+  echo "[info] Pulling model \$MODEL..." >&2
+  ollama pull "\$MODEL"
+fi
+
+# Run inference
+ollama run "\$MODEL" "\$PROMPT" >>"$OUTFILE" 2>&1
+
+# Save last_run marker
+echo "[jarvis-llama] wrote \$OUTFILE" >> "$OUTDIR/last_run.txt"
