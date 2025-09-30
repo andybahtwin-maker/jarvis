@@ -1,0 +1,19 @@
+# Jarvis Repo Index\n- Generated: 2025-09-30 18:50:14 UTC\n\n## Counts by extension\n- .sh: 30\n- [noext]: 19\n- .txt: 12\n- .log: 10\n- .md: 9\n- .py: 8\n- .json: 4\n- .lock: 2\n- .dot: 1\n- .err: 1\n- .head: 1\n- .out: 1\n- .png: 1\n\n## Recent files (top 30)\n- logs/watcher.out\n- workspace/results/auto_2025-09-30_185014_UTC_terminal_20250930_185014.md.md\n- processed/2025-09-30_185014_UTC_terminal_20250930_185014.md\n- bin/jarvis_terminal_capture.sh\n- fs/parse_markdown_blocks.py\n- bin/jarvis_parse_markdown.sh\n- workspace/results/repo_index_summary.md\n- workspace/results/repo_index_manifest.json\n- logs/watcher.err\n- bin/jarvis_index.sh\n- fs/index_repo.py\n- bin/jarvis_watch.sh\n- bin/jarvis_on_file.sh\n- README.md\n- workspace/results/last_run.txt\n- workspace/results/llama_status.txt\n- results/envscan_20250930_190304.log\n- results/envscan_20250930_190109.log\n- fs/propose_cleanup.py\n- fs/post_summary_to_notion.sh\n- fs/make_map.py\n- fs/inventory.py\n- fs/images/tree.png\n- fs/.tmp/tree.dot\n- bin/jarvis_cmd_processor.py\n- .stignore\n- .gitignore\n- skills/summarize-clipboard\n- skills/note-to-notion\n- setup_git.sh\n\n## Git status\n```\n## HEAD (no branch)
+AA .gitignore
+A  .stignore
+AA README.md
+A  bin/jarvis_cmd_processor.py
+A  fs/.tmp/tree.dot
+A  fs/images/tree.png
+A  fs/inventory.py
+A  fs/make_map.py
+A  fs/post_summary_to_notion.sh
+A  fs/propose_cleanup.py
+AM workspace
+?? bin/jarvis_index.sh
+?? bin/jarvis_on_file.sh
+?? bin/jarvis_parse_markdown.sh
+?? bin/jarvis_terminal_capture.sh
+?? bin/jarvis_watch.sh
+?? fs/index_repo.py
+?? fs/parse_markdown_blocks.py\n```\n
