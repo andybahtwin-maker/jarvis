@@ -1,0 +1,13 @@
+### LLaMA run (llama3.2:3b) - Tue Sep 30 08:08:54 PM +01 2025
+
+### Prompt
+Summarize this file briefly for a work log and portfolio context:\n\n# Demo payload – Jarvis should extract and run both blocks.
+
+```bash
+echo "hello from bash"
+date -u +"%F %T UTC"
+print("hello from python")
+print("2+2 =", 2+2)
+
+### Response
+[debug] model bytes: 00000000  6c 6c 61 6d 61 33 2e 32  3a 33 62                 |llama3.2:3b|

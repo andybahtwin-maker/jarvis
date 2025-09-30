@@ -1,0 +1,2 @@
+print("hello from python")
+print("2+2 =",2+2)

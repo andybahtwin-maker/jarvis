@@ -1,0 +1,14 @@
+{
+  "source": "inbox/terminal_20250930_192408.md",
+  "timestamp": "20250930_202411",
+  "blocks": [
+    {
+      "lang": "bash",
+      "path": "workspace/extracted/20250930_202411/block_1.sh"
+    },
+    {
+      "lang": "python",
+      "path": "workspace/extracted/20250930_202411/block_2.py"
+    }
+  ]
+}

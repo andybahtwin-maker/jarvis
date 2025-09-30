@@ -1,0 +1,22 @@
+{
+  "source": "inbox/terminal_20250930_191530.md",
+  "timestamp": "20250930_201531",
+  "blocks": [
+    {
+      "lang": "bash",
+      "path": "workspace/extracted/20250930_201531/block_1.sh"
+    },
+    {
+      "lang": "bash",
+      "path": "workspace/extracted/20250930_201531/block_2.sh"
+    },
+    {
+      "lang": "bash",
+      "path": "workspace/extracted/20250930_201531/block_3.sh"
+    },
+    {
+      "lang": "txt",
+      "path": "workspace/extracted/20250930_201531/block_4.txt"
+    }
+  ]
+}
