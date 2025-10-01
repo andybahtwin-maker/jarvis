@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 set -euo pipefail
-cd ~/Jarvis/workspace
-git add .
-git commit -m "Jarvis auto-update $(date +%F_%T)" || true
-git branch -M main
-git remote remove origin 2>/dev/null || true
-git remote add origin git@github.com:andybahtwin-maker/jarvis.git
-git push -u origin main
+subprocess.run(["git","-C",WORK,"add","."],capture_output=True)
+subprocess.run(["git","-C",WORK,"commit","-m",f"Jarvis auto-update {time.ctime()}"],capture_output=True)
+subprocess.run(["git","-C",WORK,"push","-u","origin","main"],capture_output=True)
