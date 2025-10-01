@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-VAULT="$HOME/.jarvis/.env"
-# shellcheck source=/dev/null
-. "$VAULT"
-exec "$@"
