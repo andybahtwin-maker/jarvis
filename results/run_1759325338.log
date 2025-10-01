@@ -1,0 +1,30 @@
+[Jarvis] Processing 1 code block(s) from from_shell_1759325280.md
+[Workspace] /home/andhe001/Jarvis/workspace
+
+========================================================================
+[Block 1] lang=bash
+------------------------------------------------------------------------
+# Generate an SSH key (skip if you already have one)
+[ -f ~/.ssh/id_ed25519 ] || ssh-keygen -t ed25519 -C "andy@jarvis" -N "" -f ~/.ssh/id_ed25519
+
+# Start agent and add key
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+# Show the public key for GitHub → Settings → SSH and GPG keys → New SSH key
+echo "----- ADD THIS KEY TO GITHUB -----"
+cat ~/.ssh/id_ed25519.pub
+echo "----------------------------------"
+
+# Test GitHub auth
+ssh -T git@github.com || true
+
+[Exit Code] 0
+[STDOUT]
+Agent pid 15747
+----- ADD THIS KEY TO GITHUB -----
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA00Zwm0IsXSm2U2b2WI6Yfe6b6WYQ0miwmo6SrDHADO andybahtwin@gmail.com
+----------------------------------
+[STDERR]
+Identity added: /home/andhe001/.ssh/id_ed25519 (andybahtwin@gmail.com)
+Hi andybahtwin-maker! You've successfully authenticated, but GitHub does not provide shell access.
