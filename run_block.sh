@@ -1,29 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
-# Ensure we have *something* to commit (safe no-op if README exists)
-[ -f ~/Jarvis/workspace/README.md ] || cat > ~/Jarvis/workspace/README.md <<'MD'
-# Jarvis Workspace
-Automated by Jarvis (hands-off). This workspace mirrors what I paste into the terminal.
-MD
+# Generate an SSH key (skip if you already have one)
+[ -f ~/.ssh/id_ed25519 ] || ssh-keygen -t ed25519 -C "andy@jarvis" -N "" -f ~/.ssh/id_ed25519
 
-# If your script is present, use it; otherwise inline the same logic.
-if [ -x ~/Jarvis/workspace/setup_git.sh ]; then
-  bash ~/Jarvis/workspace/setup_git.sh
-else
-  cd ~/Jarvis/workspace
-  git init
-  git branch -M main
-  git remote remove origin 2>/dev/null || true
-  git remote add origin git@github.com:andybahtwin-maker/jarvis.git
-  grep -q '^\.env$' .gitignore || cat <<GI >> .gitignore
-.env
-.env.*
-!.env.example
-GI
-  git add .
-  git commit -m "Jarvis workspace init/update" || true
-  git push -u origin main
-fi
+# Start agent and add key
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
 
-# Friendly summary
-echo "[OK] Pushed ~/Jarvis/workspace → github.com/andybahtwin-maker/jarvis (branch: main)"
+# Show the public key for GitHub → Settings → SSH and GPG keys → New SSH key
+echo "----- ADD THIS KEY TO GITHUB -----"
+cat ~/.ssh/id_ed25519.pub
+echo "----------------------------------"
+
+# Test GitHub auth
+ssh -T git@github.com || true
