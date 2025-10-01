@@ -1,0 +1,33 @@
+[Jarvis] Processing 3 code block(s) from from_shell_1759324831.md
+[Workspace] /home/andhe001/Jarvis/workspace
+
+========================================================================
+[Block 1] lang=bash
+------------------------------------------------------------------------
+echo "Hello world"
+
+[Exit Code] 0
+[STDOUT]
+Hello world
+
+========================================================================
+[Block 2] lang=python
+------------------------------------------------------------------------
+print("Oops python inside bash")
+
+[Exit Code] 0
+[STDOUT]
+Oops python inside bash
+
+========================================================================
+[Block 3] lang=sql
+------------------------------------------------------------------------
+CREATE TABLE test(id int);
+SELECT * FROM test;
+
+[Exit Code] 1
+[STDOUT]
+| id |
+[STDERR]
+SQL error: table test already exists
+Statement: CREATE TABLE test(id int)

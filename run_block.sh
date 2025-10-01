@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 set -euo pipefail
-echo "Hello world"
+can you scan my hardrive for anything were not using
