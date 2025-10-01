@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 set -euo pipefail
-fi
+exec ~/jarvis_shell.sh
