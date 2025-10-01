@@ -1,7 +1,7 @@
 {
   "type": "object",
   "properties": {
-    "skill": { "type": "string", "enum": ["note-to-notion","summarize-clipboard"] },
+    "skill": { "type": "string", "enum": ["execute_script", "summarize_markdown"] },
     "args": { "type": "array", "items": { "type": "string" } }
   },
   "required": ["skill","args"],
