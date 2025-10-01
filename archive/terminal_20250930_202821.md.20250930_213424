@@ -1,0 +1,4 @@
+python3 - <<'PY'
+print("[python] hello from python")
+print("2+2 =", 2+2)
+PY

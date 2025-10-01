@@ -1,0 +1,9 @@
+{
+  "type": "object",
+  "properties": {
+    "skill": { "type": "string", "enum": ["note-to-notion","summarize-clipboard"] },
+    "args": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": ["skill","args"],
+  "additionalProperties": false
+}
