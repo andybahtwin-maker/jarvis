@@ -1,0 +1,12 @@
+[Jarvis] Processing 1 code block(s) from from_shell_1759324177.md
+[Workspace] /home/andhe001/Jarvis/workspace
+
+========================================================================
+[Block 1] lang=bash
+------------------------------------------------------------------------
+exec ~/jarvis_shell.sh
+
+[Exit Code] 0
+[STDOUT]
+[JarvisShell] Starting. Everything you paste will go through Jarvis.
+Jarvis$
