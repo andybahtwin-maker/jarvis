@@ -1,0 +1,25 @@
+[Jarvis] Processing 2 code block(s) from from_shell_1759324587.md
+[Workspace] /home/andhe001/Jarvis/workspace
+
+========================================================================
+[Block 1] lang=bash
+------------------------------------------------------------------------
+echo "Hello world"
+
+[Exit Code] 0
+[STDOUT]
+Hello world
+
+========================================================================
+[Block 2] lang=python
+------------------------------------------------------------------------
+print("Oops python inside bash")
+CREATE TABLE test(id int);
+SELECT * FROM test;
+
+[Exit Code] 1
+[STDERR]
+  File "/home/andhe001/Jarvis/workspace/run_block.py", line 2
+    CREATE TABLE test(id int);
+           ^^^^^
+SyntaxError: invalid syntax
