@@ -1,0 +1,45 @@
+[Jarvis] Processing 1 code block(s) from from_shell_1759325241.md
+[Workspace] /home/andhe001/Jarvis/workspace
+
+========================================================================
+[Block 1] lang=bash
+------------------------------------------------------------------------
+# Ensure we have *something* to commit (safe no-op if README exists)
+[ -f ~/Jarvis/workspace/README.md ] || cat > ~/Jarvis/workspace/README.md <<'MD'
+# Jarvis Workspace
+Automated by Jarvis (hands-off). This workspace mirrors what I paste into the terminal.
+MD
+
+# If your script is present, use it; otherwise inline the same logic.
+if [ -x ~/Jarvis/workspace/setup_git.sh ]; then
+  bash ~/Jarvis/workspace/setup_git.sh
+else
+  cd ~/Jarvis/workspace
+  git init
+  git branch -M main
+  git remote remove origin 2>/dev/null || true
+  git remote add origin git@github.com:andybahtwin-maker/jarvis.git
+  grep -q '^\.env$' .gitignore || cat <<GI >> .gitignore
+.env
+.env.*
+!.env.example
+GI
+  git add .
+  git commit -m "Jarvis workspace init/update" || true
+  git push -u origin main
+fi
+
+# Friendly summary
+echo "[OK] Pushed ~/Jarvis/workspace → github.com/andybahtwin-maker/jarvis (branch: main)"
+
+[Exit Code] 128
+[STDOUT]
+Reinitialized existing Git repository in /home/andhe001/Jarvis/workspace/.git/
+[STDERR]
+fatal: Unable to create '/home/andhe001/Jarvis/workspace/.git/index.lock': File exists.
+
+Another git process seems to be running in this repository, e.g.
+an editor opened by 'git commit'. Please make sure all processes
+are terminated then try again. If it still fails, a git process
+may have crashed in this repository earlier:
+remove the file manually to continue.
