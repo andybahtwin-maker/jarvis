@@ -5,3 +5,9 @@
 .env
 .env.*
 !.env.example
+results/*.log
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
