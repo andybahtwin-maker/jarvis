@@ -1,0 +1,12 @@
+[model:llama3.2:3b]
+Here is the concise bullet list:
+
+* **Request:**
+	+ Execute a shell block in Bash
+* **Commands/Code:**
+	+ `echo "hello from JARVIS v2"`
+	+ `date`
+* **Next Actions:**
+	+ Run the command to execute the shell block
+	+ Verify output is correct (e.g. "hello from JARVIS v2" followed by date)
+

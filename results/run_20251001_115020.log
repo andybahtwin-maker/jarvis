@@ -1,0 +1,23 @@
+[info] running /home/andhe001/Jarvis/inbox/paste_everything.md.plan.json as sh
+/home/andhe001/Jarvis/inbox/paste_everything.md.plan.json: line 2: skill:: command not found
+/home/andhe001/Jarvis/inbox/paste_everything.md.plan.json: line 3: args:: command not found
+/home/andhe001/Jarvis/inbox/paste_everything.md.plan.json: line 4: /home/andhe001/Jarvis/inbox/paste_everything.md: Permission denied
+/home/andhe001/Jarvis/inbox/paste_everything.md.plan.json: line 5: ]: command not found
+[info] running /home/andhe001/Jarvis/inbox/paste_everything.md.plan.json as sh
+/home/andhe001/Jarvis/inbox/paste_everything.md.plan.json: line 2: skill:: command not found
+/home/andhe001/Jarvis/inbox/paste_everything.md.plan.json: line 3: args:: command not found
+/home/andhe001/Jarvis/inbox/paste_everything.md.plan.json: line 4: /home/andhe001/Jarvis/inbox/paste_everything.md: Permission denied
+/home/andhe001/Jarvis/inbox/paste_everything.md.plan.json: line 5: ]: command not found
+[info] running /home/andhe001/Jarvis/inbox/paste_everything.md.pending as sh
+/home/andhe001/Jarvis/inbox/paste_everything.md.pending: line 1: pending: command not found
+[info] running /home/andhe001/Jarvis/inbox/paste_everything.md.pending as sh
+/home/andhe001/Jarvis/inbox/paste_everything.md.pending: line 1: pending: command not found
+[info] running /home/andhe001/Jarvis/inbox/paste_everything.md.approve as sh
+[info] running /home/andhe001/Jarvis/inbox/paste_everything.md.approve as sh
+[info] running /home/andhe001/Jarvis/inbox/paste_everything.md.plan.json as sh
+/home/andhe001/Jarvis/inbox/paste_everything.md.plan.json: line 2: skill:: command not found
+/home/andhe001/Jarvis/inbox/paste_everything.md.plan.json: line 3: args:: command not found
+/home/andhe001/Jarvis/inbox/paste_everything.md.plan.json: line 4: /home/andhe001/Jarvis/inbox/paste_everything.md: Permission denied
+/home/andhe001/Jarvis/inbox/paste_everything.md.plan.json: line 5: ]: command not found
+[info] running /home/andhe001/Jarvis/inbox/paste_everything.md.pending as sh
+/home/andhe001/Jarvis/inbox/paste_everything.md.pending: line 1: pending: command not found

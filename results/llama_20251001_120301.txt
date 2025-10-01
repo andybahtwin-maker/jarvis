@@ -1,0 +1,15 @@
+[model:llama3.2:3b]
+Here are the crisp bullet points of actions, commands, and follow-ups:
+
+• **Create a new file**: `echo "hello from block one"`
+• **Create a temporary script file using heredoc**: 
+  • Command: `cat <<'SH' > ~/Jarvis/tmp_demo/hello.sh`
+  • Output:
+    ```bash
+#!/usr/bin/env bash
+echo "heredoc works!"
+```
+• **Set the script to executable**: `chmod +x ~/Jarvis/tmp_demo/hello.sh`
+• **Execute the script**:
+  • Command: `~/Jarvis/tmp_demo/hello.sh`
+

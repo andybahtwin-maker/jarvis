@@ -1,0 +1,8 @@
+[model:llama3.2:3b]
+Here's a summary of the file in bullet points:
+
+* Creates a new file `hello.sh` with a Bash script.
+* The script uses a here document (heredoc) to write "heredoc works!" to the file.
+* Adds execute permissions to the script using `chmod +x`.
+* Executes the script by running `~/Jarvis/tmp_demo/hello.sh`.
+

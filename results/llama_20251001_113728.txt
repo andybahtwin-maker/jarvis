@@ -1,0 +1,6 @@
+[model:llama3.2:3b]
+Here are the crisp bullet points summarizing the file:
+
+• Execute a Bash command to print "approved run" to the console.
+• Followed by printing the current date in the console.
+

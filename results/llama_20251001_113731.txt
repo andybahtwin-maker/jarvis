@@ -1,0 +1,7 @@
+[model:llama3.2:3b]
+Here is a summary of the file in crisp bullet points:
+
+* Action: Run a command to print "approved run" followed by the current date.
+* Command: `echo "approved run" && date`
+* Follow-up: The output of this command will be displayed, confirming approval.
+

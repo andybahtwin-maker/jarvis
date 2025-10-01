@@ -1,0 +1,7 @@
+[model:llama3.2:3b]
+I'm happy to help you with summarizing the contents of the file, but I need more information. You haven't provided me with the content of the file "/home/andhe001/Jarvis/inbox/test_run.md".
+
+Could you please paste the content of the file or provide a description of its content? That way, I can assist you in summarizing it for your journal.
+
+Alternatively, if you don't have access to the file itself, we could try to recreate the summary based on the file name. In that case, "test_run.md" suggests that the file is related to testing and may contain notes or results from a test run.
+

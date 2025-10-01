@@ -1,0 +1,13 @@
+[model:llama3.2:3b]
+Here are the crisp bullet points of actions, commands, and follow-ups:
+
+• Create a new file at `~/Jarvis/tmp_demo/hello.sh` using heredoc.
+  • Command: `cat <<'SH' > ~/Jarvis/tmp_demo/hello.sh`
+  • Contents: `#!/usr/bin/env bash; echo "heredoc works!"`
+
+• Make the newly created file executable.
+  • Command: `chmod +x ~/Jarvis/tmp_demo/hello.sh`
+
+• Run the just-created and executed script to verify its functionality.
+  • Command: `~/Jarvis/tmp_demo/hello.sh`
+

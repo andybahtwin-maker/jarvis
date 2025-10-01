@@ -1,0 +1,6 @@
+[info] running /home/andhe001/Jarvis/workspace/journals/bundle_20251001_121847.sh as sh
+first block
+heredoc works!
+hello from python block
+[BLOCKED] refusing to execute outside /home/andhe001/Jarvis/workspace/journals: /home/andhe001/Jarvis/inbox/full_paste.md.done
+[BLOCKED] refusing to execute outside /home/andhe001/Jarvis/workspace/journals: /home/andhe001/Jarvis/inbox/full_paste.md.done

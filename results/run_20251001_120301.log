@@ -1,0 +1,20 @@
+[info] running /home/andhe001/Jarvis/inbox/test_message.md as sh
+/home/andhe001/Jarvis/inbox/test_message.md: line 3: unexpected EOF while looking for matching ``'
+[info] running /home/andhe001/Jarvis/inbox/test_message.md as sh
+/home/andhe001/Jarvis/inbox/test_message.md: line 3: unexpected EOF while looking for matching ``'
+[info] running /home/andhe001/Jarvis/inbox/test_message.md.approve as sh
+[info] running /home/andhe001/Jarvis/inbox/test_message.md.approve as sh
+[info] running /home/andhe001/Jarvis/inbox/test_message.md.plan.json as sh
+/home/andhe001/Jarvis/inbox/test_message.md.plan.json: line 2: skill:: command not found
+/home/andhe001/Jarvis/inbox/test_message.md.plan.json: line 3: args:: command not found
+/home/andhe001/Jarvis/inbox/test_message.md.plan.json: line 4: /home/andhe001/Jarvis/inbox/test_message.md: Permission denied
+/home/andhe001/Jarvis/inbox/test_message.md.plan.json: line 5: ]: command not found
+[info] running /home/andhe001/Jarvis/inbox/test_message.md.plan.json as sh
+/home/andhe001/Jarvis/inbox/test_message.md.plan.json: line 2: skill:: command not found
+/home/andhe001/Jarvis/inbox/test_message.md.plan.json: line 3: args:: command not found
+/home/andhe001/Jarvis/inbox/test_message.md.plan.json: line 4: /home/andhe001/Jarvis/inbox/test_message.md: Permission denied
+/home/andhe001/Jarvis/inbox/test_message.md.plan.json: line 5: ]: command not found
+[info] running /home/andhe001/Jarvis/inbox/test_message.md.pending as sh
+/home/andhe001/Jarvis/inbox/test_message.md.pending: line 1: pending: command not found
+[info] running /home/andhe001/Jarvis/inbox/test_message.md.pending as sh
+/home/andhe001/Jarvis/inbox/test_message.md.pending: line 1: pending: command not found
