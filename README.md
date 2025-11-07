@@ -1,176 +1,236 @@
-# 🎇 Jarvis — Your Terminal AI Assistant
+# 🕵️‍♂️ Private_i — IP Webcam → Edge AI Camera Node
 
-Jarvis is a **lightweight AI + automation framework** that runs directly in your terminal.  
-It acts as your **personal AI operator** — executing, logging, and syncing automation tasks that come from ChatGPT or any LLM output.
+**Private_i** turns an Android phone running **IP Webcam** into a tiny AI camera node.
 
-Instead of manually copying, pasting, and debugging code snippets from AI tools, Jarvis does it for you:
-- 🧠 Extracts commands or code from AI output  
-- 🧩 Executes them safely in your environment  
-- 🧾 Captures logs and results  
-- 🗂️ Snapshots outputs and syncs everything to GitHub  
+It pulls frames from your phone (`/shot.jpg`), runs **MobileNet-SSD** locally (CPU) via OpenCV’s DNN, keeps the **latest detection summary in memory**, and serves a small **Flask dashboard** with live MJPEG and JSON endpoints you can embed in a portfolio or Notion.
 
-It’s like giving your terminal a memory and a mind.
+It’s a self-contained demo of: “phone → network camera → local AI → web UI → machine-readable JSON.”
 
 ---
 
-## 🚀 Why Jarvis?
+## What it does
 
-AI is great at generating ideas — but terrible at **execution hygiene**.  
-Jarvis bridges that gap by serving as an **AI-native workflow engine**, built for developers, makers, and automators who live in the terminal.
-
-- ✅ Automate anything you can type or paste  
-- 📜 Keep versioned logs and run histories automatically  
-- 🧠 Connect local automation to AI workflows  
-- ☁️ Sync seamlessly to GitHub, Notion, or custom endpoints  
-
-Think of Jarvis as *n8n meets Bash meets your favorite AI model* — but locally, safely, and transparently.
+- 📷 **Ingests video** from an Android IP Webcam (`CAMERA_URL` in `.env`)
+- 🧠 **Runs object detection** with MobileNet-SSD (person, bottle, dog, car, etc.)
+- 🗣️ **Generates an English sentence** like: `I currently see 2 people, 1 bottle.`
+- 🌐 **Serves a dashboard** at `/` (Flask, single-file HTML template in `app.py`)
+- 🧩 **Exposes endpoints** you can curl/screenshot:
+  - `/health`
+  - `/summary.json`
+  - `/shot.jpg`
+  - `/annotated.jpg`
+  - `/video` (MJPEG — falls back to manual frames if native stream fails)
+- 🧪 **Capture script** in `scripts/capture_screens.sh` to dump current images + JSON into `captures/` for your portfolio
+- 🛠️ **Bootstrap scripts** to create venv, install deps, and fetch the Caffe model
 
 ---
 
-## 📁 Project Structure
+## Repo layout
 
-```plaintext
-Jarvis/
-├── README.md                  # Documentation (this file)
-├── .gitignore                 # Ignore results, caches, artifacts
-├── setup_git.sh               # Initialize Git + remote connection
-├── jarvis_watcher.sh          # Inbox watcher & executor loop
-├── jarvis_cmd_processor.py    # Core parsing and dispatch engine
-├── bin/                       # CLI entrypoints and utilities
-│   ├── jarvis                 # Main dispatcher CLI
-│   ├── jarvis-dispatcher.sh   # Command router
-│   ├── jarvis-log             # Logging helper
-│   ├── jarvis-env             # Environment loader
-│   ├── jarvis-secret          # Secret management helper
-│   ├── jarvis_llama.sh        # Ollama / local LLM integration
-│   └── process_incoming.sh    # Inbox → results pipeline
-├── skills/                    # Modular automations (“skills”)
-│   ├── note-to-notion         # Push notes to Notion
-│   └── summarize-clipboard    # Summarize clipboard content
-├── fs/                        # Filesystem utilities
-│   └── inventory.py
-└── logs/                      # Auto-generated run logs
+```text
+Private_i-main/
+├── app.py                     # Flask app + detection + HTML dashboard
+├── requirements.txt           # Flask, requests, numpy, opencv-python-headless, python-dotenv
+├── .env.example               # CAMERA_URL + timing + port
+├── .gitignore                 # venv, .env, pycache
+├── scripts/
+│   ├── dev_run.sh             # create venv, install, fetch models, run app
+│   ├── fetch_models.sh        # gets MobileNetSSD_deploy.{prototxt,caffemodel}
+│   └── capture_screens.sh     # grabs /shot.jpg, /annotated.jpg, /summary.json → ./captures
+├── models/
+│   ├── MobileNetSSD_deploy.prototxt
+│   └── MobileNetSSD_deploy.caffemodel
+├── captures/                  # sample output from the running service
+│   ├── shot.jpg
+│   ├── annotated.jpg
+│   └── summary.json
+└── bootstrap.sh               # older scaffold script pointing to a local path
 
-⚙️ Installation
-1. Prerequisites
+Notes from the code:
 
-    Python 3.11+
+    app.py will exit if models/MobileNetSSD_deploy.* are missing — that’s why ./scripts/fetch_models.sh exists.
 
-    Bash (Linux/macOS)
+    Detection classes come from the standard MobileNet-SSD VOC list (person, dog, bottle, etc.).
 
-    Git
+    Everything is kept in-memory in last_summary and last_frame.
 
-    Optional: Ollama
+Requirements
 
-    for local LLM inference
+    Python 3
 
-2. Clone and Setup
+    An Android phone running IP Webcam (or anything that exposes /shot.jpg)
 
-git clone https://github.com/your-username/jarvis.git
-cd jarvis
-chmod +x setup_git.sh && ./setup_git.sh
-chmod +x bin/*
+    Ability to install OpenCV headless
 
-3. Run Jarvis
+    Network reachability from your machine → phone
 
-# Start the watcher (passive mode)
-./jarvis_watcher.sh
+1. Configure environment
 
-# Or execute directly
-jarvis "summarize clipboard"
+The project already has .env.example. Make your own .env the way you like to work — with a HEREDOC:
 
-(By default, Jarvis logs runs to /logs and pushes updates to GitHub.)
-🧠 How It Works
-Stage	Description
-1. Input Detection	Watches your “inbox” (clipboard, text file, or stdin) for new content
-2. Command Parsing	jarvis_cmd_processor.py extracts code or commands from AI output
-3. Safe Execution	Runs code in an isolated sandbox with rollback support
-4. Logging	All outputs and errors timestamped to /logs
-5. Syncing	Results auto-committed and pushed to GitHub or Notion
+cat <<'ENV' > .env
+# Base URL of your Android IP Webcam (no trailing slash)
+CAMERA_URL=http://192.168.0.42:8080
 
-This allows you to go from AI prompt → executed automation → synced results in seconds.
-🪄 Extending Jarvis
+# How often (in seconds) to re-run AI on a fresh frame
+ANALYZE_EVERY=2
 
-Jarvis uses modular “skills” for new automations.
+# Flask bind
+HOST=0.0.0.0
+PORT=5005
+ENV
 
-Create a new skill:
+Adjust the IP to whatever your phone shows in IP Webcam.
+2. Install & run (dev path)
 
-mkdir -p skills/my-new-skill
-echo '#!/bin/bash' > skills/my-new-skill/run.sh
-chmod +x skills/my-new-skill/run.sh
+The repo already gives you the happy-path script:
 
-Register it:
-Edit bin/jarvis-dispatcher.sh:
+./scripts/dev_run.sh
 
-case "$command" in
-  "my-new-skill")
-    ./skills/my-new-skill/run.sh "$@"
-    ;;
-esac
+What that does (you can read it in scripts/dev_run.sh):
 
-Your new command is now callable via:
+    cd to project root
 
-jarvis "my-new-skill"
+    create .venv
 
-🧩 Integrations
+    install requirements.txt
 
-    🦙 Ollama / LLaMA — Local model inference
+    run ./scripts/fetch_models.sh
 
-    🗒️ Notion API — Push summaries or notes
+    show your .env
 
-    🌐 GitHub Sync — Auto-commits logs and artifacts
+    start python app.py
 
-    📋 Clipboard Automation — Hands-free task triggers
+So after it finishes, open:
 
-Each integration is modular — you can drop in your own APIs or automations.
-🧰 Example Scenarios
+http://localhost:5005/
 
-# Summarize clipboard content with your local LLM
-jarvis "summarize clipboard"
+3. Endpoints (from app.py)
 
-# Push a daily note to Notion
-jarvis "note-to-notion"
+These are the routes actually defined:
 
-# Automate and log a script run
-echo "Run my_script.py and log output" > inbox/task.txt
-./jarvis_watcher.sh
+    / — dashboard HTML (rendered with render_template_string(...), includes auto-refresh for the summary)
 
-💡 Use Cases
+    /health — returns { ok: true, camera: "...", last_update: ... }
 
-    AI Engineers: Automate local testing pipelines with AI guidance
+    /summary.json — returns the latest detection in machine-readable form:
 
-    Sales Engineers: Auto-generate demo scripts and logs from AI prompts
+    {
+      "timestamp": 1730950000.123,
+      "counts": { "person": 2, "bottle": 1 },
+      "english": "I currently see 2 people, 1 bottle.",
+      "camera": "http://192.168.0.42:8080"
+    }
 
-    Designers & Makers: Turn natural language into versioned shell actions
+    /shot.jpg — raw current frame (from phone)
 
-    Researchers: Keep reproducible, timestamped experiment logs
+    /annotated.jpg — same frame but with boxes + labels (drawn in draw_annotations(...))
 
-🧑‍💻 Development Notes
+    /video — MJPEG stream; tries to proxy IP Webcam’s own stream first, then falls back to “poll shot → encode → stream”
 
-    Language: Bash + Python 3.11+
+This matches what your minimal README said, but now mapped to real code.
+4. Capturing portfolio evidence
 
-    Optional: Local LLM via Ollama
+You already have captures/ with:
 
-    Logs: /logs directory with timestamps
+    shot.jpg
 
-    Safety: Isolated environment execution + rollback
+    annotated.jpg
 
-    Sync: Git auto-commits via setup_git.sh
+    summary.json
 
-🔗 Related Projects
+To regenerate them from a live run:
 
-    Coinbase Pipeline
+./scripts/capture_screens.sh
 
-    — Market data automation companion built with Jarvis principles.
+That script just curls your local Flask app:
 
-🤝 Contributing
+curl -fsS http://localhost:5005/shot.jpg       -o captures/shot.jpg
+curl -fsS http://localhost:5005/annotated.jpg  -o captures/annotated.jpg
+curl -fsS http://localhost:5005/summary.json   -o captures/summary.json
 
-Got a skill idea?
-Fork the repo, drop it in /skills, and send a PR — Jarvis grows through community extensions.
-🪪 License
+That’s good for “here’s the output of my AI cam node” in a portfolio.
+5. Model fetching
 
-MIT License — free to modify, extend, and deploy.
-✨ Tip
+app.py refuses to start if the model isn’t present:
 
-Jarvis was built for the way modern developers actually use AI — copy, paste, iterate, and run.
-Now, your AI assistant can live right inside your terminal.
+if not (os.path.exists(PTX_PATH) and os.path.exists(CAFFEM_PATH)):
+    raise SystemExit("[!] Missing model files. Run: ./scripts/fetch_models.sh")
+
+So if you move this project or clone it somewhere clean, run:
+
+./scripts/fetch_models.sh
+
+That downloads:
+
+    models/MobileNetSSD_deploy.prototxt
+
+    models/MobileNetSSD_deploy.caffemodel
+
+from GitHub (raw). The script even has a message telling you to swap to another model if GitHub blocks it.
+6. How the pipeline works (from app.py)
+
+    Frame grab
+
+    r = requests.get(f"{CAMERA_URL}/shot.jpg", timeout=5)
+    frame = cv2.imdecode(...)
+
+    Detection (every ANALYZE_EVERY seconds in a background thread):
+
+        build blob 300×300
+
+        run net.forward()
+
+        filter conf < 0.5
+
+        store: counts + individual detections + timestamp
+
+    Presentation
+
+        HTML dashboard pulls /summary.json on an interval
+
+        /annotated.jpg draws green boxes and labels
+
+        /video tries native → fallback MJPEG
+
+    State
+
+        kept in memory in last_frame and last_summary
+
+This is enough to show “live computer vision from a phone, on CPU, in Python, served over HTTP.”
+7. Notes / portfolio framing
+
+    This is a single-file Flask CV demo — perfect to show “I can glue mobile → vision → web.”
+
+    You already included example outputs in captures/, so reviewers don’t have to run the phone.
+
+    Because endpoints are clean (/summary.json, /annotated.jpg), this can be chained into another service (like your other pipeline projects).
+
+8. Troubleshooting
+
+    Blank dashboard: make sure your phone is reachable at the IP in .env, and that IP Webcam is actually running.
+
+    Model missing: run ./scripts/fetch_models.sh
+
+    Port already in use: change PORT= in .env
+
+    Different camera app: as long as it gives you a JPEG at something like /shot.jpg, you can point CAMERA_URL there.
+
+9. Requirements file (already in repo)
+
+flask==3.0.3
+requests==2.32.3
+numpy==1.26.4
+opencv-python-headless==4.10.0.84
+python-dotenv==1.0.1
+
+That matches what scripts/dev_run.sh will install.
+10. Run it the manual way (no script)
+
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+./scripts/fetch_models.sh
+python app.py
+
+Open: http://localhost:5005/
